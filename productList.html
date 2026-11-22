@@ -1,12 +1,15 @@
 <template>
-    
-    <!-- <lightning-datatable lwc:if={products}
-      key-field="id"
-      data={data}
-      columns={columns}>
-    </lightning-datatable> -->
+    <section class="card slds-var-p-around_medium">
+      <div lwc:if={opportunity}>
+        <h1 class="slds-text-color_error">{opportunity.name}</h1>
 
-    <div lwc:if={products}> Some items need to be added. </div>
+        <template for:each={oppKeys} for:item="key">
+          <div key={key} class="slds-grid slds-grid_align-spread">
+            <em>{key}</em> 
+            <p>{opportunity.key}</p>
+          </div>
+        </template>
 
-    <div lwc:else> No product found. </div>
+      </div>
+    </section>
 </template>
