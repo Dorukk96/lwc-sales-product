@@ -7,22 +7,15 @@ export default class ProductList extends LightningElement {
     @api recordId;
     @track opportunity = {};
 
-    @track oppKeys; 
-    @track oppValues;
-
-
     @wire(getRecord, { recordId: '$recordId', fields: [
         'Opportunity.Name', 'Opportunity.Amount', 'Opportunity.StageName', 'Opportunity.Account.Name'
     ] })
     wiredOpportunityRecord ({ data, error }) {
         if (data) {
-            this.opportunity['Account']       = data.fields.Amount.value;
-            this.opportunity['Name']         = data.fields.Name.value.toUpperCase();
-            this.opportunity['Stage Name']    = data.fields.StageName.value;
-            this.opportunity['Account Name']  = data.fields.Account.displayValue;
-            
-            this.oppKeys = Object.keys(this.opportunity);
-            
+            this.opportunity['name']     = data.fields.Name.value.toUpperCase();
+            this.opportunity['amount']   = data.fields.Amount.value;
+            this.opportunity['stage']    = data.fields.StageName.value;
+            this.opportunity['accName']  = data.fields.Account.displayValue;
         } else if (error) {
             console.error(error);
         }

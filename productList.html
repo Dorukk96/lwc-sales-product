@@ -3,12 +3,11 @@
       <div lwc:if={opportunity}>
         <h1 class="slds-text-color_error">{opportunity.name}</h1>
 
-        <template for:each={oppKeys} for:item="key">
-          <div key={key} class="slds-grid slds-grid_align-spread">
-            <em>{key}</em> 
-            <p>{opportunity.key}</p>
-          </div>
-        </template>
+        <div class="slds-grid slds-grid_align-spread"> <em>Amount ($)</em> <p>{opportunity.amount}</p> </div>
+        <div class="slds-grid slds-grid_align-spread"> <em>Stage</em> <p>{opportunity.stage}</p> </div>
+        <div class="slds-grid slds-grid_align-spread"> <em>Account Name</em> <p>{opportunity.accName}</p> </div>
+
+        
 
       </div>
     </section>
