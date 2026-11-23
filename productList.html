@@ -4,11 +4,35 @@
       <template lwc:if={products}>
         <lightning-datatable
           key-field="id"
-          data={productData}
-          columns={cols}>
+          data={products}
+          columns={cols}
+          max-row-selection="1"
+          onrowselection={displayModalHandler}>
         </lightning-datatable>
+
+        <div class="slds-grid slds-grid_align-end slds-var-m-around_small aggregated-result"> {grantTotal} </div>
       </template>
 
       <template lwc:else>⚠️ No product found.</template>
     </section>
+
+    <template lwc:if={isModalActive}>
+      <c-modal-component onhide={closeModal}>
+        <div slot="header">{selectedLineItem.Name}</div>
+        <div slot="body">
+          Name: {selectedLineItem.Name} <br>
+          Unit Price: {selectedLineItem.UnitPrice} <br>
+          Quantity : {selectedLineItem.Quantity} <br>
+          Total Price: {selectedLineItem.TotalPrice}
+        </div>
+        <div slot="footer">
+          <button 
+            class="slds-button slds-button_destructive" 
+            aria-label="Cancel and close"
+            onclick={closeModal}>
+              Close
+          </button>
+        </div>
+      </c-modal-component>
+    </template>
 </template>
