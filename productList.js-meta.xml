@@ -3,10 +3,16 @@
     <apiVersion>68.0</apiVersion>
     <isExposed>true</isExposed>
 
-    <masterLabel>Products</masterLabel>
+    <masterLabel>Opportunity Products</masterLabel>
     <description>Sales product table that shows the users purchased products</description>
 
     <targets>
         <target>lightning__RecordPage</target>
     </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="currencyCode" type="String"></property>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

@@ -8,5 +8,10 @@
 }
 
 .aggregated-result {
-    background-color: rgba(0, 255, 251, 0.66);
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: #acf3e4;
+    color: #056764;
+
+    top: 0; left: 5px;
 }

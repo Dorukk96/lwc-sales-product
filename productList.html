@@ -1,6 +1,9 @@
 <template>
     <section class="card slds-var-p-around_medium">
 
+      <div>
+        <div class="slds-grid slds-grid_align-end slds-var-m-around_small slds-is-relative aggregated-result"> {grantTotal} </div>
+      </div>
       <template lwc:if={products}>
         <lightning-datatable
           key-field="id"
@@ -9,8 +12,6 @@
           max-row-selection="1"
           onrowselection={displayModalHandler}>
         </lightning-datatable>
-
-        <div class="slds-grid slds-grid_align-end slds-var-m-around_small aggregated-result"> {grantTotal} </div>
       </template>
 
       <template lwc:else>⚠️ No product found.</template>
@@ -35,4 +36,7 @@
         </div>
       </c-modal-component>
     </template>
+
+    <div>New Feature branch has been added</div>
+    <hr>
 </template>

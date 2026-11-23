@@ -8,9 +8,10 @@ export default class ProductList extends LightningElement {
     @api recordId;
     isModalActive = false;
     selectedLineItem;
+    @api currencyCode = '';
 
     cols = [
-        { label: 'Name', fieldName: 'Name' }, 
+        { label: 'Name', fieldName: 'Name', type: 'link' }, 
         { label: 'Unit Price', fieldName: 'UnitPrice', type: 'currency' },
         { label: 'Quantity', fieldName: 'Quantity' },
         { label: 'Total Price', fieldName: 'TotalPrice', type: 'currency' }
@@ -21,7 +22,13 @@ export default class ProductList extends LightningElement {
         this.products.forEach(product => {
             sum += product?.TotalPrice;
         });
-        return sum;
+
+        let currFormat = new Intl.NumberFormat('tr-TR', {
+            style: 'currency',
+            currency: this.currencyCode
+        });
+
+        return currFormat.format(sum);
     }
 
     /**
@@ -33,20 +40,24 @@ export default class ProductList extends LightningElement {
         fields: ['OpportunityLineItem.Product2.Name', 'OpportunityLineItem.UnitPrice', 'OpportunityLineItem.Quantity', 'OpportunityLineItem.TotalPrice']
     }) wiredLineItems ({ data, error }) {
         if (data) {
-            this.displayToastMessage('Success', 'Products loaded', 'success');
-            this.products = data.records.map(product => {
-                return {
-                    Name       : product.fields?.Product2?.displayValue,
-                    UnitPrice  : product.fields?.UnitPrice?.value,
-                    Quantity   : product.fields?.Quantity?.value,
-                    TotalPrice : product.fields?.TotalPrice.value
-                };
-            });
-
-            console.clear(); console.log('data records=> ', data.records);
+            if (data.records.length > 0) {
+                console.log('>>> ', data.records);
+                this.displayToastMessage('Success', 'Products loaded', 'success');
+                this.products = data.records.map(product => {
+                    return {
+                        Name            : product.fields?.Product2?.displayValue,
+                        UnitPrice       : product.fields?.UnitPrice?.value,
+                        Quantity        : product.fields?.Quantity?.value,
+                        TotalPrice      : product.fields?.TotalPrice.value
+                    };
+                });
+            } else {
+                this.products = undefined;
+            }
         } else if (error) {
             this.displayToastMessage('Error', error, 'error');
         }
+    
     }
 
     displayToastMessage (title, message, variant) {
